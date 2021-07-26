@@ -12,7 +12,7 @@ let body = document.querySelector("body");
 
 //when caputrebutton get clicked so it captures the pic of image going on in videoplayer
 captureBtn.addEventListener("click", function() {
-    let canvas = document.querySelector("#canvas");
+    let canvas = document.createElement("canvas");
 
     //set canvas height and width eqaul to videoplayer height and width
     canvas.width = videoPlayer.videoWidth;
@@ -25,8 +25,19 @@ captureBtn.addEventListener("click", function() {
     //so it draws image taking 0,0  as left corner of canvas
     tool.drawImage(videoPlayer, 0, 0);
 
-    //ans the append that canvas in body
-    body.append(canvas);
+    //here we convert that canvas to url as canvas contains that captured image
+    let url = canvas.toDataURL();
+
+    let a = document.createElement("a");
+
+    a.href = url;
+
+    a.download = "image.png";
+
+    a.click();
+
+    //we remove the anchor tag as after captured imaage is downloaded we dont need that anchor tag
+    a.remove();
 
 })
 
@@ -86,6 +97,7 @@ promiseToUseCamera
             //chunks is empty for next recording process
             chunks = [];
 
+
             let link = URL.createObjectURL(blob); //convert this blob into a link which can be putted into a anchor tag and downloaded
 
             let a = document.createElement("a");
@@ -93,6 +105,8 @@ promiseToUseCamera
             a.href = link;
             a.download = "video.mp4";
             a.click();
+
+            a.remove();
 
         });
 
