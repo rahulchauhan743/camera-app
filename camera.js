@@ -12,6 +12,15 @@ let body = document.querySelector("body");
 
 //when caputrebutton get clicked so it captures the pic of image going on in videoplayer
 captureBtn.addEventListener("click", function() {
+
+    let innerSpan = captureBtn.querySelector("span");
+
+    innerSpan.classList.add("capture-animation");
+
+    setTimeout(function() {
+        innerSpan.classList.remove("capture-animation");
+    }, 1000)
+
     let canvas = document.createElement("canvas");
 
     //set canvas height and width eqaul to videoplayer height and width
@@ -27,6 +36,8 @@ captureBtn.addEventListener("click", function() {
 
     //here we convert that canvas to url as canvas contains that captured image
     let url = canvas.toDataURL();
+
+    canvas.remove();
 
     let a = document.createElement("a");
 
@@ -48,14 +59,18 @@ captureBtn.addEventListener("click", function() {
 //which automatically calls "stop" eventlisteneer
 recordBtn.addEventListener("click", function() {
 
+    let innerSpan = recordBtn.querySelector("span");
+
     if (isRecording == true) {
         //recording ko stop krna h
         mediaRecorder.stop();
         isRecording = false;
+        innerSpan.classList.remove("record-animation");
     } else {
         //recording shuru krni hai 
         mediaRecorder.start();
         isRecording = true;
+        innerSpan.classList.add("record-animation")
     }
 })
 
