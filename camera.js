@@ -1,13 +1,35 @@
 let videoPlayer = document.querySelector("video");
 let recordBtn = document.querySelector("#record");
+let captureBtn = document.querySelector("#capture");
+let body = document.querySelector("body");
 let mediaRecorder;
 let chunks = [];
 let isRecording = false;
-let captureBtn = document.querySelector("#capture");
+
+let filter = "";
 
 
-let body = document.querySelector("body");
+let allFilters = document.querySelectorAll(".filter");
 
+for (let i = 0; i < allFilters.length; i++) {
+    allFilters[i].addEventListener("click", function(e) {
+
+        let previousFilter = document.querySelector(".filter-div");
+
+        if (previousFilter)
+            previousFilter.remove();
+
+        let color = e.currentTarget.style.backgroundColor;
+
+        filter = color;
+
+        let div = document.createElement("div");
+
+        div.classList.add("filter-div");
+        div.style.backgroundColor = color;
+        body.append(div);
+    });
+}
 
 
 //when caputrebutton get clicked so it captures the pic of image going on in videoplayer
@@ -34,6 +56,11 @@ captureBtn.addEventListener("click", function() {
     //so it draws image taking 0,0  as left corner of canvas
     tool.drawImage(videoPlayer, 0, 0);
 
+    if (filter != "") {
+        tool.fillStyle = filter;
+        tool.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
     //here we convert that canvas to url as canvas contains that captured image
     let url = canvas.toDataURL();
 
@@ -59,7 +86,14 @@ captureBtn.addEventListener("click", function() {
 //which automatically calls "stop" eventlisteneer
 recordBtn.addEventListener("click", function() {
 
+
     let innerSpan = recordBtn.querySelector("span");
+
+    let previousFilter = document.querySelector(".filter-div");
+
+    if (previousFilter) previousFilter.remove();
+
+    filter = "";
 
     if (isRecording == true) {
         //recording ko stop krna h
