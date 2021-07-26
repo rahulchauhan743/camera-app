@@ -80,6 +80,8 @@ captureBtn.addEventListener("click", function() {
 })
 
 
+
+
 //when recordBtn is clicked so if isrecording is false  intially means recording is not started
 //so we start it by .start() which automatically calls "dataavailable" eventlisteneer
 //when isRecording == true which means recording is alreading going on for stoping it we call .stop()
