@@ -13,25 +13,40 @@ let currZoom = 1; // min = 1 and max = 3
 let zoomIn = document.querySelector(".in");
 let zoomOut = document.querySelector(".out");
 
+let galleryBtn = document.querySelector("#gallery");
+
+galleryBtn.addEventListener("click", function() {
+
+    //this location.assign helps to navigate to gallery.html
+    location.assign("gallery.html");
+});
+
+
 zoomIn.addEventListener("click", function() {
+    //here we increase the zoom level
     currZoom = currZoom + 0.1;
 
+    //if it is greater than 3 so it again sets to 3
     if (currZoom > 3) {
         currZoom = 3;
     }
 
+    //here we change scale of the videoplayer or incrase its size so it looks like zoom(this in onlu change on UI) 
     videoPlayer.style.transform = `scale(${currZoom})`;
 
 })
 
 
 zoomOut.addEventListener("click", function() {
+    //here we deccrease the zoom level
     currZoom = currZoom - 0.1;
 
+    //if it is less than 1 so it again sets to 1
     if (currZoom < 1) {
         currZoom = 1;
     }
-
+    //as zoomlevel is decreasing so we scale  the videoplayer to new zoomlevel which is decreasing so xommout 
+    //again on UI 
     videoPlayer.style.transform = `scale(${currZoom})`;
 
 })
@@ -79,11 +94,19 @@ captureBtn.addEventListener("click", function() {
 
     let tool = canvas.getContext("2d");
 
+    //when we capture the image
+
+    //so first we shift canva origin to center
     //top left to center
     tool.translate(canvas.width / 2, canvas.height / 2);
+
+    //then increase or decrease size of image by scaling the canvas   
     //zoom basically stretch kra canvas ko
     tool.scale(currZoom, currZoom);
+
     //wapis top left pr leaye origin
+
+    //then again shift origin to its default
     tool.translate(-canvas.width / 2, -canvas.height / 2);
 
     //this draws the image in videoplayer on canvas
@@ -101,16 +124,18 @@ captureBtn.addEventListener("click", function() {
 
     canvas.remove();
 
-    let a = document.createElement("a");
+    saveMedia(url);
 
-    a.href = url;
+    // let a = document.createElement("a");
 
-    a.download = "image.png";
+    // a.href = url;
 
-    a.click();
+    // a.download = "image.png";
 
-    //we remove the anchor tag as after captured imaage is downloaded we dont need that anchor tag
-    a.remove();
+    // a.click();
+
+    // //we remove the anchor tag as after captured imaage is downloaded we dont need that anchor tag
+    // a.remove();
 
 })
 
@@ -140,6 +165,8 @@ recordBtn.addEventListener("click", function() {
     } else {
         //recording shuru krni hai 
         mediaRecorder.start();
+
+        //as zoom in and zom out does not perform on recording so set zoomlevel to 1 again when recording start
         currZoom = 1;
 
         videoPlayer.style.transform = `scale(${currZoom})`;
@@ -187,16 +214,17 @@ promiseToUseCamera
             //chunks is empty for next recording process
             chunks = [];
 
+            saveMedia(blob);
 
-            let link = URL.createObjectURL(blob); //convert this blob into a link which can be putted into a anchor tag and downloaded
+            // let link = URL.createObjectURL(blob); //convert this blob into a link which can be putted into a anchor tag and downloaded
 
-            let a = document.createElement("a");
+            // let a = document.createElement("a");
 
-            a.href = link;
-            a.download = "video.mp4";
-            a.click();
+            // a.href = link;
+            // a.download = "video.mp4";
+            // a.click();
 
-            a.remove();
+            // a.remove();
 
         });
 
