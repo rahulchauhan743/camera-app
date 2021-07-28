@@ -10,6 +10,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    font-size: x-large;
 }
 
 .media-card {
@@ -63,4 +64,6 @@ body {
     background-color: turquoise;
     border-radius: 175px;
     border: 36px black;
+    font-size: unset;
+    font-family: auto;
 }

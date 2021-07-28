@@ -40,7 +40,7 @@ button span {
 }
 
 #record {
-    top: 31vh;
+    top: 16vh;
 }
 
 #record span {
@@ -48,13 +48,14 @@ button span {
 }
 
 #capture {
-    top: 53vh;
+    top: 45vh;
 }
 
 #gallery {
-    bottom: 4rem;
+    top: 74vh;
     color: white;
     font-size: 1.1rem;
+    padding-right: 61px;
 }
 
 #capture span {
