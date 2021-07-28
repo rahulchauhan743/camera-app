@@ -15,7 +15,10 @@ body {
 
 video {
     height: 100%;
-    width: 100%;
+    width: 101%;
+    position: fixed;
+    top: 0px;
+    right: -12px;
 }
 
 button {
@@ -37,7 +40,7 @@ button span {
 }
 
 #record {
-    top: 30vh;
+    top: 31vh;
 }
 
 #record span {
